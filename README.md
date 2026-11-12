@@ -24,12 +24,35 @@ The analysis consists of the following main components:
 
 4. **Community detection:** Application of Louvain, Leiden, and Spinglass algorithms to identify communities of interconnected attributes. 
 
-5. **Pooled within-country network:** Estimation of within-country Spearman correlations followed by sample-size-weighted Fisher's z pooling and regularized network estimation.
+5. **Pooled country network:** Estimation of within-country Spearman correlations followed by sample-size-weighted Fisher's z pooling and regularized network estimation.
 
-6. **Robustness analysis:** Evaluation of network estimates and centrality stability using bootstrap resampling and comparison of pairwise-deletion and complete-case approaches.
+
 
 ## Usage Instructions
 
+Before running the scripts, download Wave 1 of the Global Flourishing Study dataset from the official data source (https://www.cos.io/gfs-wave-data). Run the following commands from the main directory using Python 3.
+
+1. Overall Network Construction:
+```bash
+python3 overall-network-construction.py --input wellbeing-dataset.csv --output data
+```
+
+2. Pooled Within-Country Network Construction
+```bash
+python3 pooled-country-network.py --input wellbeing-dataset.csv --output data/pooled
+```
+
+3. Centrality Analysis
+```bash
+python3 centrality.py
+```
+
+4. Community Detection
+```bash
+python3 community.py
+```
+
+The scripts generate CSV files containing the estimated networks and analysis results.
 
 
 ## Requirements
