@@ -30,14 +30,43 @@
 - **Code Overview:** The repository contains four Python scripts implementing overall network construction, pooled within-country network construction, centrality analysis, and community detection.
 
 
+---
+
 
 ## Dataset
 
-The study uses publicly available data from Wave 1 of the Global Flourishing Study (https://www.cos.io/gfs-wave-data).
 
-The original survey data can be obtained from the source above. The manuscript provides the complete list of selected attributes, their descriptions, and response scales.
+- **Original Survey Data:** The data can be obtained from the Center for Open Science: [Global Flourishing Study](https://www.cos.io/gfs-wave-data).
+- **Derived Network Data:** The `data/` directory contains two folders corresponding to the two estimated networks:
+    - **Overall well-being network:** The network estimated using survey responses across the full sample.
+    - **Pooled within-country network:** The network estimated by pooling correlations computed separately within each country.
 
-## Code and Methodology
+    Each folder contains two CSV files:
+    - `nodes.csv`: Contains the 48 nodes representing the selected survey attributes and their associated information.
+    - `edges.csv`: Contains the connections between pairs of nodes and their corresponding edge weights, representing regularized partial correlations.
+
+
+---
+
+
+## Code
+
+The repository contains four Python scripts covering network construction and analysis.
+
+- **Network Construction:**
+
+  - overall-network-construction.py: Constructs the overall well-being network from the original survey data using pairwise Spearman correlations and graphical LASSO regularization. The resulting network is exported as node and edge CSV files.
+  - pooled-country-network.py: Constructs the pooled within-country network by calculating Spearman correlations separately within each country, combining them using sample-size-weighted Fisher's z transformation, and applying graphical LASSO regularization. The resulting network is exported as node and edge CSV files.
+
+- **Network Analysis:**
+
+  - centrality.py: Calculates node strength, expected influence, well-being strength, well-being expected influence, bridge strength, bridge expected influence, bridge closeness, and bridge betweenness to identify central attributes and attributes connecting different conceptual domains.
+  - community.py: Applies Louvain, Leiden, and Spinglass community detection algorithms to identify groups of interconnected attributes, examine the stability of the detected communities, and assess their alignment with the predefined conceptual domains.
+
+---
+
+
+## Methodology
 
 The analysis consists of the following main components:
 
@@ -50,6 +79,9 @@ The analysis consists of the following main components:
 4. **Community detection:** Application of Louvain, Leiden, and Spinglass algorithms to identify communities of interconnected attributes. 
 
 5. **Pooled country network:** Estimation of within-country Spearman correlations followed by sample-size-weighted Fisher's z pooling and regularized network estimation.
+
+
+---
 
 
 
@@ -80,9 +112,26 @@ python3 community.py
 The scripts generate CSV files containing the estimated networks and analysis results.
 
 
+---
+
+
 ## Requirements
 
-The code requires Python 3 and the following Python libraries:NumPy, Pandas, SciPy, Scikit-learn (for graphical LASSO network estimation), NetworkX (for network analysis), and Matplotlib.
+- Python 3. 
+- Required libraries:
+   - NumPy
+   - Pandas
+   - SciPy
+   - Scikit-learn
+   - NetworkX
+   - Matplotlib.
 
-The implementation uses graphical_lasso from sklearn.covariance for regularized network estimation and ConvergenceWarning from sklearn.exceptions for handling convergence warnings.
 
+---
+
+
+## Research Citation
+
+If you use the code or derived network data provided in this repository, please cite the accompanying research paper:
+
+Alrasheed, H. Exploring the Multidimensional Structure of Well-Being Through Network Analysis. Manuscript submitted for publication.
